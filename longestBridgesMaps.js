@@ -53,15 +53,21 @@ for (j = 0; j < bridges.length; j++){
 }
 
 // sorts bridge lengths then gets largest one
-let sortedSpans = []
-sortedSpans = bridgeSpans.sort()
-let largestSpan = sortedSpans[0]
+let largest = 0
+for (i=0; i < bridgeSpans.length; i++){
+    if (bridgeSpans[i] > largest){
+        largest = bridgeSpans[i]
+        i = 0
+    }
+}
+
+console.log(largest)
 
 // formats popups and sets markers
 for (i = 0; i < bridges.length; i++){
         let coordinates = bridges[i].coordinates
         let mapPopup = bridges[i].name + '<br>Location: ' + bridges[i]["cityState"] + '<br>Length: ' + bridges[i].span + ' meters<br>'
-    if (bridges[i].span === largestSpan){
+    if (bridges[i].span === largest){
         let markers = L.marker(coordinates, {icon: blueBridge}).bindPopup(mapPopup).addTo(map)
     }
     else{    
